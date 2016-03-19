@@ -1,12 +1,14 @@
 package codeclone;
 
+import java.util.List;
+
 public class CodeClone {
 	
 	public static String filename = "/Users/Liuqing/git/CodeCloneDetection/src/codeclone/test.java";
 	
 	public static void getMethodMapping(String filename) {
 		ASTParserTool parserTool = new ASTParserTool();
-		parserTool.getMethod(parserTool.getCompilationUnit(filename));
+		List<FragmentVector> fragVector = parserTool.parseMethod(parserTool.getCompilationUnit(filename));
 	}
 
 	public static void main(String[] args) {

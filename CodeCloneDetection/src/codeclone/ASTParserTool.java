@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;  
 import java.io.FileNotFoundException;  
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 public class ASTParserTool {
+	
+	public List<FragmentVector> tokenFreqVector = new ArrayList<FragmentVector>();
 	
 	public CompilationUnit getCompilationUnit(String javaFilePath){  
 		byte[] input = null;
@@ -39,15 +42,18 @@ public class ASTParserTool {
 		return result;
 	}
 	
-	public void getMethod(CompilationUnit result) {
+	public List<FragmentVector> parseMethod(CompilationUnit result) {
+		
 		List types = result.types();
 		TypeDeclaration typeDec = (TypeDeclaration) types.get(0);
 		
 		MethodDeclaration fragmentDec[] = typeDec.getMethods();
-		System.out.println("Method:");
+		
 		for (MethodDeclaration fragment : fragmentDec) {
 			visitMethod(result, fragment);
 		}
+		
+		return tokenFreqVector;
 	}
 	
 	public void visitMethod(CompilationUnit result, MethodDeclaration fragment) {
@@ -59,7 +65,7 @@ public class ASTParserTool {
 		//System.out.println("fragment end line #:" + endLineNumber);		
 				
 		//get method name
-		SimpleName fragmentName = fragment.getName();
+		String fragmentName = fragment.getName().toString();
 		//System.out.println("fragment name:" + fragmentName);
 		
 		//get method parameters
@@ -76,5 +82,9 @@ public class ASTParserTool {
 		
 		FragmentTokenizer fragTokenizer = new FragmentTokenizer();
 		Map<String, Integer> fragTokenFreq = fragTokenizer.visit(fragmentBody);
+		
+		FragmentVector fragVector = new FragmentVector(startLineNumber, endLineNumber, fragmentName,
+												fragmentPara, fragmentType, fragTokenFreq);
+		tokenFreqVector.add(fragVector);
     }
 }

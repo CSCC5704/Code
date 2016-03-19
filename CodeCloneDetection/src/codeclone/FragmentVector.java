@@ -3,7 +3,6 @@ package codeclone;
 import java.util.Map;
 
 public class FragmentVector {
-	int id;
 	int startLineNumber;
 	int endLineNumber;
 	String fragmentName;
@@ -11,8 +10,7 @@ public class FragmentVector {
 	String fragmentType;
 	Map<String, Integer> tokenFrequency;
 	
-	FragmentVector(int id, int start, int end, String name, String para, String type, Map<String, Integer> tokenfreq) {
-		this.id = id;
+	FragmentVector(int start, int end, String name, String para, String type, Map<String, Integer> tokenfreq) {
 		this.startLineNumber = start;
 		this.endLineNumber = end;
 		this.fragmentName = name;
