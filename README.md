@@ -1,4 +1,4 @@
-# File 
+# Files
 CodeClone.java - The main code to detect cloned code fragments in java source codes
 
 ASTParserTool - Use JDT ASTParser to parse the jave source code into fragments
