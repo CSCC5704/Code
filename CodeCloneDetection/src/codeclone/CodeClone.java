@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CodeClone {
 	
-	public static String filename = "/Users/sal/Documents/workspace/BinaryConverter/src/BinaryConverter.java";
+	public static String filename = "test.java";
 	
 	public static void getMethodMapping(String filename) {
 		ASTParserTool parserTool = new ASTParserTool();
