@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -32,8 +33,12 @@ public class ASTParserTool {
 			e.printStackTrace();
 		}
 		
-		@SuppressWarnings("deprecation")
 		ASTParser astParser = ASTParser.newParser(AST.JLS3);
+		
+		Map options = JavaCore.getOptions();
+		JavaCore.setComplianceOptions(JavaCore.VERSION_1_5, options);
+		astParser.setCompilerOptions(options);
+		
 		astParser.setSource(new String(input).toCharArray());
 		astParser.setKind(ASTParser.K_COMPILATION_UNIT);
 		
@@ -70,7 +75,7 @@ public class ASTParserTool {
 		
 		//get method parameters
 		String fragmentPara = fragment.parameters().toString();
-		//System.out.println("fragment parameters:" + fragmentPara);
+		System.out.println("fragment parameters:" + fragmentPara);
 		
 		//get method return type
 		String fragmentType = fragment.getReturnType2().toString();
