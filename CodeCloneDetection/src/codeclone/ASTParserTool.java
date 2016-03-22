@@ -18,7 +18,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 public class ASTParserTool {
 	
-	public List<FragmentVector> tokenFreqVector = new ArrayList<FragmentVector>();
+	public List<FragmentVector> fragInfoVector = new ArrayList<FragmentVector>();
 	
 	public CompilationUnit getCompilationUnit(String javaFilePath){  
 		byte[] input = null;
@@ -58,7 +58,7 @@ public class ASTParserTool {
 			visitMethod(result, fragment);
 		}
 		
-		return tokenFreqVector;
+		return fragInfoVector;
 	}
 	
 	public void visitMethod(CompilationUnit result, MethodDeclaration fragment) {
@@ -75,7 +75,7 @@ public class ASTParserTool {
 		
 		//get method parameters
 		String fragmentPara = fragment.parameters().toString();
-		System.out.println("fragment parameters:" + fragmentPara);
+		//System.out.println("fragment parameters:" + fragmentPara);
 		
 		//get method return type
 		String fragmentType = fragment.getReturnType2().toString();
@@ -86,10 +86,10 @@ public class ASTParserTool {
 		//System.out.println("fragment body:" + fragmentBody);
 		
 		FragmentTokenizer fragTokenizer = new FragmentTokenizer();
-		Map<String, Integer> fragTokenFreq = fragTokenizer.visit(fragmentBody);
+		TokenList fragTokenInfo = fragTokenizer.visit(fragmentBody);
 		
 		FragmentVector fragVector = new FragmentVector(startLineNumber, endLineNumber, fragmentName,
-												fragmentPara, fragmentType, fragTokenFreq);
-		tokenFreqVector.add(fragVector);
+												fragmentPara, fragmentType, fragTokenInfo);
+		fragInfoVector.add(fragVector);
     }
 }

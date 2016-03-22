@@ -9,6 +9,9 @@ public class CodeClone {
 	public static void getMethodMapping(String filename) {
 		ASTParserTool parserTool = new ASTParserTool();
 		List<FragmentVector> fragVector = parserTool.parseMethod(parserTool.getCompilationUnit(filename));
+		for(int i = 0; i < fragVector.size(); i++) {
+			fragVector.get(i).Print();
+		}
 	}
 
 	public static void main(String[] args) {
