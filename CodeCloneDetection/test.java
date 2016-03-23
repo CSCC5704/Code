@@ -31,6 +31,40 @@ public class BinaryConverter {
             result = "-" + result;
         return result;
     }
+	
+	public static String toBinary1(int num){
+		boolean isneg = num < 0;
+        num = Math.abs(num);        
+        String result = "";
+        
+        while(num > 1){
+            result = num % 2 + result;
+            num = num / 2;
+        }
+		        
+        result = num + result;
+        
+        if( isneg )
+            result = "-" + result;
+        return result;
+    }
+	
+	public static String toBinary2(int num){
+		boolean isNeg=num<0;	//Comments
+        num=Math.abs(num);	//Comments
+        String result="";
+        
+        while(num>1){
+            result=num % 2 + result;
+            num=num/2;
+        }
+		        
+        result = num + result;
+        
+        if( isNeg )
+            result = "-" + result;
+        return result;
+    }
     
     /*
      * pre: cal != null

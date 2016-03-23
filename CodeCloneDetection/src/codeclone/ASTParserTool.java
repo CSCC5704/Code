@@ -18,8 +18,10 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 public class ASTParserTool {
 	
-	public List<FragmentVector> fragInfoVector = new ArrayList<FragmentVector>();
+	// ArrayList of InfoVector
+	public MethodList methodVectorList = new MethodList();
 	
+	// AST Parser returns the structure of the source code
 	public CompilationUnit getCompilationUnit(String javaFilePath){  
 		byte[] input = null;
 		try {
@@ -47,49 +49,50 @@ public class ASTParserTool {
 		return result;
 	}
 	
-	public List<FragmentVector> parseMethod(CompilationUnit result) {
+	// get methods in source code
+	public MethodList parseMethod(CompilationUnit result) {
 		
 		List types = result.types();
 		TypeDeclaration typeDec = (TypeDeclaration) types.get(0);
 		
-		MethodDeclaration fragmentDec[] = typeDec.getMethods();
+		MethodDeclaration methodDec[] = typeDec.getMethods();
 		
-		for (MethodDeclaration fragment : fragmentDec) {
-			visitMethod(result, fragment);
+		for (MethodDeclaration method : methodDec) {
+			// look into each method
+			visitMethod(result, method);
 		}
 		
-		return fragInfoVector;
+		return methodVectorList;
 	}
 	
-	public void visitMethod(CompilationUnit result, MethodDeclaration fragment) {
-		//get method line #
-		int startLineNumber = result.getLineNumber(fragment.getStartPosition());
-		//System.out.println("fragment start line #:" + startLineNumber);
+	public void visitMethod(CompilationUnit result, MethodDeclaration method) {
 		
-		int endLineNumber = result.getLineNumber(fragment.getStartPosition() + fragment.getLength()) - 1;
-		//System.out.println("fragment end line #:" + endLineNumber);		
+		// get method start line #
+		int startLineNumber = result.getLineNumber(method.getStartPosition());
+		
+		// get method end line #
+		int endLineNumber = result.getLineNumber(method.getStartPosition() + method.getLength()) - 1;
 				
-		//get method name
-		String fragmentName = fragment.getName().toString();
-		//System.out.println("fragment name:" + fragmentName);
+		// get method name
+		String methodName = method.getName().toString();
 		
-		//get method parameters
-		String fragmentPara = fragment.parameters().toString();
-		//System.out.println("fragment parameters:" + fragmentPara);
+		// get method parameters
+		String methodPara = method.parameters().toString();
 		
-		//get method return type
-		String fragmentType = fragment.getReturnType2().toString();
-		//System.out.println("fragment type:" + fragmentType);
+		// get method return type
+		String methodType = method.getReturnType2().toString();
 		
-		//get method body
-		String fragmentBody = fragment.getBody().toString();
-		//System.out.println("fragment body:" + fragmentBody);
+		// get method body
+		String methodBody = method.getBody().toString();
+
+		// tokenize method body
+		MethodTokenizerTool tokenizerTool = new MethodTokenizerTool();
+		TokenList methodTokenList = tokenizerTool.visit(methodBody);
 		
-		FragmentTokenizer fragTokenizer = new FragmentTokenizer();
-		TokenList fragTokenInfo = fragTokenizer.visit(fragmentBody);
-		
-		FragmentVector fragVector = new FragmentVector(startLineNumber, endLineNumber, fragmentName,
-												fragmentPara, fragmentType, fragTokenInfo);
-		fragInfoVector.add(fragVector);
+		// construct methodVector
+		MethodVector methodVector = new MethodVector(startLineNumber, endLineNumber, methodName,
+												methodPara, methodType, methodTokenList);
+		// add to methodVectorList
+		methodVectorList.addMethodVector(methodVector);
     }
 }

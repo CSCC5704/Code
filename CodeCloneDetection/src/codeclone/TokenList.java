@@ -7,12 +7,24 @@ import java.util.List;
 
 public class TokenList{
 	
+	// ArrayList of TokenVector
 	public List<TokenVector> tokenList = new ArrayList<TokenVector>();
 	
+	// get tokenVector
+	public TokenVector getTokenVector(int index) {
+		return tokenList.get(index);
+	}
+	// add function
 	public void addTokenVector(TokenVector tv) {
 		tokenList.add(tv);
 	}
 	
+	// size
+	public int size() {
+		return tokenList.size();
+	}
+	
+	// look up with TokenName
 	public int getIndexByName(String name) {
 		for(int i = 0; i < tokenList.size(); i++) {
 			if(tokenList.get(i).TokenName.equals(name))
@@ -21,10 +33,22 @@ public class TokenList{
 		return -1;
 	}
 	
+	// increase TokenCount
 	public void setValueByIndex(int index) {
 		tokenList.get(index).TokenCount++;
 	}
 	
+	// get tokenList by tokenType
+	public TokenList getListByType(String type) {
+		TokenList tv = new TokenList();
+		for(int i = 0; i < tokenList.size(); i++) {
+			if(tokenList.get(i).TokenType.equals(type))
+				tv.addTokenVector(tokenList.get(i));
+		}
+		return tv;
+	}
+	
+	// sort ArrayList by TokenName
 	public void sortListByName() {
 		Collections.sort(tokenList, new Comparator<TokenVector>() {
 	        public int compare(TokenVector arg0, TokenVector arg1) {
@@ -33,6 +57,7 @@ public class TokenList{
 	    });
 	}
 	
+	// sort ArrayList by TokenType
 	public void sortListByType() {
 		Collections.sort(tokenList, new Comparator<TokenVector>() {
 	        public int compare(TokenVector arg0, TokenVector arg1) {
@@ -41,6 +66,7 @@ public class TokenList{
 	    });
 	}
 	
+	// sort ArrayList by TokenCount
 	public void sortListByCount() {
 		Collections.sort(tokenList, new Comparator<TokenVector>() {
 	        public int compare(TokenVector arg0, TokenVector arg1) {
@@ -49,12 +75,10 @@ public class TokenList{
 	    });
 	}
 	
-	public void printList() {
+	// print
+	public void print() {
 		for(int i = 0; i < tokenList.size(); i++) {
-			System.out.printf("%15s%15s%15d\n", 
-					tokenList.get(i).TokenName, 
-					tokenList.get(i).TokenType, 
-					tokenList.get(i).TokenCount);
+			tokenList.get(i).print();
 		}
 	}
 }
