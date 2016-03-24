@@ -1,9 +1,18 @@
 # Files
-CodeClone.java - The main code to detect cloned code fragments in java source codes
+CodeClone.java - the main function to detect cloned code in java files
 
-ASTParserTool.java - Use JDT ASTParser to parse the jave source code into fragments
+ASTParserTool.java - use JDT ASTParser to parse the jave source code into methods
 
-FragmentVector.java - Store the structure of each fragment, including startlinenumber, endlinenubmer, fragmentname, fragmentPara, fragmentType and fragmentBody in \<String, Integer\> Form
+MethodTokenizerTool.java - tokenize the method body and get the frequency of selected tokens
 
-FragmentTokenizer.java - Tokenize the fragment body and calculate the frequency of selected tokens
+BiGramSimilarity.java - calculate the similarity of two strings by using the bi-gram algorithm
 
+MethodSimilarity.java - calculate the similarity of two methods
+
+MethodList.java - a list of MethodVector and some local functions
+
+MethodVector.java - build the structure of each method, including startLineNumber, endLineNumber, methodName, methodPara, methodType and methodBody
+
+TokenList.java - a list of TokenVector and some local functions
+
+TokenVector.java - build the structure of each token, including tokenName, tokenType and tokenCount
