@@ -110,6 +110,12 @@ public class MethodSimilarity {
 		tokenList2 = mVector2.methodTokenList.getListByType("OtherChar");
 		simTokenOtherChar = tokenListSim(tokenList1, tokenList2);
 		
+		/*
+		System.out.printf("{%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f,%.3f}", simMethodPara, simMethodType,
+				simTokenType, simTokenKeyword, simTokenOtherStr, simTokenMarker, simTokenOperator, 
+				simTokenOtherChar);
+		System.out.println();
+		*/
 		// calculate the similarity between two methods
 		return simMethodPara * w1 + simMethodType * w2 + simTokenType * w3 +
 				simTokenKeyword * w4 + simTokenOtherStr * w5 + simTokenMarker * w6 +
@@ -129,6 +135,7 @@ public class MethodSimilarity {
 				methodSimilarity = methodVectorSim(mList.getMethodVector(index1), mList.getMethodVector(index2));
 				// output clone group
 				if(methodSimilarity >= detectThreshold) {
+					//System.out.println("1");
 					System.out.println("Clone Group " + countID + " --> " +
 							"Similarity :" + String.format("%.4f", methodSimilarity));
 					System.out.printf("%15s%15d%15d\n", 
@@ -141,6 +148,8 @@ public class MethodSimilarity {
 							mList.getMethodVector(index2).endLineNumber);
 					countID++;
 				}
+				//else
+				//	System.out.println(0);
 			}
 		}
 	}
