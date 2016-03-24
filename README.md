@@ -5,9 +5,11 @@ ASTParserTool.java - use JDT ASTParser to parse the jave source code into method
 
 MethodTokenizerTool.java - tokenize the method body and get the frequency of selected tokens
 
+MultiplePerceptionTool.java - use multiple perception to auto-adjust the weights of each similarity
+
 BiGramSimilarity.java - calculate the similarity of two strings by using the bi-gram algorithm
 
-MethodSimilarity.java - calculate the similarity of two methods
+MethodSimilarity.java - calculate the similarities of two methods (e.g. methodPara, methodType)
 
 MethodList.java - a list of MethodVector and some local functions
 
