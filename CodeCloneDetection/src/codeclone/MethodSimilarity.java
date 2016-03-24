@@ -10,12 +10,14 @@ public class MethodSimilarity {
 	public double simTokenMarker, simTokenOperator, simTokenOtherChar;
 	public double w1 = 0.1, w2 = 0.1, w3 = 0.15, w4 = 0.15, w5 = 0.3, w6 = 0.05, w7 = 0.1, w8 = 0.05;
 	public double methodSimilarity;
+	
+	//public double tokenThreshold = 0.7;
 	public double detectThreshold = 0.5;
 	
 	public static int countID = 1;
 	
 	public String str1, str2;
-	public TokenList tList1, tList2;
+	public TokenList tokenList1, tokenList2;
 	
 	// calculate the similarity of both TokenLists
 	public double tokenListSim(TokenList tList1, TokenList tList2) {
@@ -45,6 +47,21 @@ public class MethodSimilarity {
 		return 1.0 / (1 + Math.sqrt(tokenListDis));
 	}
 	
+	/*
+	public void tokenListUnification() {
+		BiGramSimilarity biGramSim = new BiGramSimilarity();
+		for(int index1 = 0; index1 < tokenList1.size(); index1++) {
+			for(int index2 = 0; index2 < tokenList2.size(); index2++) {
+				double simTokenName = biGramSim.simScore(
+						biGramSim.bigram(tokenList1.getTokenVector(index1).TokenName), 
+						biGramSim.bigram(tokenList2.getTokenVector(index2).TokenName));
+				if(simTokenName > tokenThreshold)
+					tokenList2.getTokenVector(index2).TokenName = tokenList1.getTokenVector(index1).TokenName;
+			}
+		}
+	}
+	*/
+	
 	public double methodVectorSim(MethodVector mVector1, MethodVector mVector2) {
 		// calculate methodPara's similarity 
 		BiGramSimilarity biGramSim = new BiGramSimilarity();
@@ -61,34 +78,37 @@ public class MethodSimilarity {
 			simMethodType = 0;
 		
 		// calculate token_Type's similarity 
-		tList1 = mVector1.methodTokenList.getListByType("Type");
-		tList2 = mVector2.methodTokenList.getListByType("Type");
-		simTokenType = tokenListSim(tList1, tList2);
+		tokenList1 = mVector1.methodTokenList.getListByType("Type");
+		tokenList2 = mVector2.methodTokenList.getListByType("Type");
+		simTokenType = tokenListSim(tokenList1, tokenList2);
 		
 		// calculate token_Keyword's similarity 
-		tList1 = mVector1.methodTokenList.getListByType("Keyword");
-		tList2 = mVector2.methodTokenList.getListByType("Keyword");
-		simTokenKeyword = tokenListSim(tList1, tList2);
+		tokenList1 = mVector1.methodTokenList.getListByType("Keyword");
+		tokenList2 = mVector2.methodTokenList.getListByType("Keyword");
+		simTokenKeyword = tokenListSim(tokenList1, tokenList2);
 		
 		// calculate token_OtherStr's similarity 
-		tList1 = mVector1.methodTokenList.getListByType("OtherStr");
-		tList2 = mVector2.methodTokenList.getListByType("OtherStr");
-		simTokenOtherStr = tokenListSim(tList1, tList2);
+		tokenList1 = mVector1.methodTokenList.getListByType("OtherStr");
+		tokenList2 = mVector2.methodTokenList.getListByType("OtherStr");
+		/*
+		 * tokenListUnification();
+		 */
+		simTokenOtherStr = tokenListSim(tokenList1, tokenList2);
 		
 		// calculate token_Marker's similarity 
-		tList1 = mVector1.methodTokenList.getListByType("Marker");
-		tList2 = mVector2.methodTokenList.getListByType("Marker");
-		simTokenMarker = tokenListSim(tList1, tList2);
+		tokenList1 = mVector1.methodTokenList.getListByType("Marker");
+		tokenList2 = mVector2.methodTokenList.getListByType("Marker");
+		simTokenMarker = tokenListSim(tokenList1, tokenList2);
 		
 		// calculate token_Operator's similarity 
-		tList1 = mVector1.methodTokenList.getListByType("Operator");
-		tList2 = mVector2.methodTokenList.getListByType("Operator");
-		simTokenOperator = tokenListSim(tList1, tList2);
+		tokenList1 = mVector1.methodTokenList.getListByType("Operator");
+		tokenList2 = mVector2.methodTokenList.getListByType("Operator");
+		simTokenOperator = tokenListSim(tokenList1, tokenList2);
 		
 		// calculate token_OtherChar's similarity 
-		tList1 = mVector1.methodTokenList.getListByType("OtherChar");
-		tList2 = mVector2.methodTokenList.getListByType("OtherChar");
-		simTokenOtherChar = tokenListSim(tList1, tList2);
+		tokenList1 = mVector1.methodTokenList.getListByType("OtherChar");
+		tokenList2 = mVector2.methodTokenList.getListByType("OtherChar");
+		simTokenOtherChar = tokenListSim(tokenList1, tokenList2);
 		
 		// calculate the similarity between two methods
 		return simMethodPara * w1 + simMethodType * w2 + simTokenType * w3 +

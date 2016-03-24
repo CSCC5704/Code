@@ -32,17 +32,17 @@ public class BinaryConverter {
         return result;
     }
 	
-	public static String toBinary1(int num){
-		boolean isneg = num < 0;
-        num = Math.abs(num);        
+	public static String toBinary1(int baseNum){
+		boolean isneg = baseNum < 0;
+		baseNum = Math.abs(baseNum);        
         String result = "";
         
-        while(num > 1){
-            result = num % 2 + result;
-            num = num / 2;
+        while(baseNum > 1){
+            result = baseNum % 2 + result;
+            baseNum = baseNum / 2;
         }
 		        
-        result = num + result;
+        result = baseNum + result;
         
         if( isneg )
             result = "-" + result;
