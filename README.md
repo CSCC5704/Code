@@ -1,5 +1,5 @@
 # Files
-CodeClone.java            - the main function to detect cloned code in java files
+CodeClone.java	- the main function to detect cloned code in java files
 
 ASTParserTool.java        - use JDT ASTParser to parse the jave source code into methods
 
