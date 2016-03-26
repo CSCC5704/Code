@@ -2,7 +2,7 @@ package codeclone;
 
 public class CodeClone {
 	
-	public static String filename = "test.java";
+	public static String filename = "testfiles/testfile1.java";
 	
 	public static ASTParserTool parserTool = new ASTParserTool();
 
@@ -13,7 +13,6 @@ public class CodeClone {
 		
 		MethodSimilarity methodSim = new MethodSimilarity();
 		methodSim.simDetector(methodVectorList);
-		
 		/*
 		double similarity[][] = {
 				{0.071,0.000,0.414,0.333,0.055,0.414,0.087,0.143},
