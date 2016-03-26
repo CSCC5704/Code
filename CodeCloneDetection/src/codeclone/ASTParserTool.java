@@ -80,7 +80,11 @@ public class ASTParserTool {
 		String methodPara = method.parameters().toString();
 		
 		// get method return type
-		String methodType = method.getReturnType2().toString();
+		String methodType;
+		if(method.getReturnType2() != null)
+			methodType = method.getReturnType2().toString();
+		else
+			methodType = "";
 		
 		// get method body
 		String methodBody = method.getBody().toString();

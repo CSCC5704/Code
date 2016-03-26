@@ -134,7 +134,9 @@ public class MethodSimilarity {
 			for(int index2 = index1 + 1; index2 < mList.size(); index2++) {
 				methodSimilarity = methodVectorSim(mList.getMethodVector(index1), mList.getMethodVector(index2));
 				// output clone group
-				if(methodSimilarity >= detectThreshold) {
+				if(methodSimilarity >= detectThreshold
+						&& mList.getMethodVector(index1).endLineNumber - mList.getMethodVector(index1).startLineNumber > 8
+						&& mList.getMethodVector(index2).endLineNumber - mList.getMethodVector(index2).startLineNumber > 8) {
 					//System.out.println("1");
 					System.out.println("Clone Group " + countID + " --> " +
 							"Similarity :" + String.format("%.4f", methodSimilarity));
@@ -160,7 +162,9 @@ public class MethodSimilarity {
 			for(int index2 = 0; index2 < mList2.size(); index2++) {
 				methodSimilarity = methodVectorSim(mList1.getMethodVector(index1), mList2.getMethodVector(index2));
 				// output clone group
-				if(methodSimilarity >= detectThreshold) {
+				if(methodSimilarity >= detectThreshold
+						&& mList1.getMethodVector(index1).endLineNumber - mList1.getMethodVector(index1).startLineNumber > 8
+						&& mList2.getMethodVector(index2).endLineNumber - mList2.getMethodVector(index2).startLineNumber > 8) {
 					System.out.println("Clone Group " + countID + " --> " +
 							"Similarity :" + String.format("%.4f", methodSimilarity));
 					System.out.printf("%15s%15d%15d\n", 
