@@ -2,7 +2,7 @@ package codeclone;
 
 public class CodeClone {
 	
-	public static String filename = "testfiles/testfile4.java";
+	public static String filename = "testfiles/testfile1.java";
 	
 	public static ASTParserTool parserTool = new ASTParserTool();
 
